@@ -1,0 +1,59 @@
+# This is a basic workflow to help you get started with Actions
+name: Demo
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+#   schedule:
+#     # UTC (国内 UTC+8)
+#     - cron: '01 4 * * *'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    # 超时设置
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Setup Python version
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip' # caching pip dependencies
+          
+      - name: Setup Environment
+        run: |
+          pip install --upgrade pip
+          pip install git+https://github.com/openai/whisper.git 
+#         pip install Pillow pyscreenshot
+#         pip install -r ./requirements.txt
+          
+      - name: Delete old workflow runs
+        uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
+        with:
+          repository: ${{ github.repository }}   # replace this with your own repository such as >> owner/repo
+          older-than-seconds: 86400          # remove all workflow runs older than 1 day >> 24*60*60=86400
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup FFmpeg using versions
+        uses: Iamshankhadeep/setup-ffmpeg@v1.2
+        with:
+          # Not strictly necessary, but it may prevent rate limit
+          # errors especially on GitHub-hosted macos machines.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Demo
+#         env:
+#           URL_USER_PASSWD: ${{ secrets.URL_USER_PASSWD }}
+#           BARK_TOKEN: ${{ secrets.BARK_TOKEN }}
+#           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+#           TG_USER_ID: ${{ secrets.TG_USER_ID }}
+        run: |  
+          python3 ./main.py
