@@ -31,8 +31,6 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install git+https://github.com/openai/whisper.git 
-#         pip install Pillow pyscreenshot
-#         pip install -r ./requirements.txt
           
       - name: Delete old workflow runs
         uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
@@ -50,10 +48,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Demo
-#         env:
-#           URL_USER_PASSWD: ${{ secrets.URL_USER_PASSWD }}
-#           BARK_TOKEN: ${{ secrets.BARK_TOKEN }}
-#           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-#           TG_USER_ID: ${{ secrets.TG_USER_ID }}
         run: |  
           python3 ./main.py
