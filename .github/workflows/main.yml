@@ -48,5 +48,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Demo
+        env:
+          YOUR_HF_TOKEN: ${{ secrets.YOUR_HF_TOKEN }}
         run: |  
           python3 ./main.py
