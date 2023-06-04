@@ -1,6 +1,6 @@
 import whisperx, os
 
-YOUR_HF_TOKEN = os.environ['BARK_TOKEN']
+YOUR_HF_TOKEN = os.environ['YOUR_HF_TOKEN']
 device = "cuda" 
 min_speakers = 2
 max_speakers = 2
