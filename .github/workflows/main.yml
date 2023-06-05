@@ -3,7 +3,7 @@ name: Demo
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
 #   pull_request:
 #     branches: [ "main" ]
 #   schedule:
@@ -16,7 +16,7 @@ jobs:
   job:
     runs-on: ubuntu-latest
     # 超时设置
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,7 +29,7 @@ jobs:
           
       - name: Setup Environment
         run: |
-          conda install pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia
+          conda install pytorch==2.0.0 torchvision==0.15.2 torchaudio==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia
           pip install --upgrade pip
           pip install git+https://github.com/m-bain/whisperx.git
           
